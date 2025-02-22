@@ -3,7 +3,17 @@
         Options -MultiViews -Indexes
     </IfModule>
 
-    RewriteEngine On
+    # Enable the Apache rewrite engine
+RewriteEngine On
+
+# Check if the requested resource is NOT a file
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# Check if the requested resource is NOT a directory
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# If both conditions are true, route everything to index.php
+RewriteRule ^ index.php [QSA,L]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
